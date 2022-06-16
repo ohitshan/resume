@@ -45,15 +45,27 @@ function Login({ providers }: ProviderProps) {
         className="absolute left-4 top-4 cursor-pointer object-contain md:left-10 md:top-6"
       />
       <div className="flex space-x-2">
-        <div>
-          <button
-            className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5
+        <button
+          className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5
             transition-all hover:border-2"
-            onClick={() => signIn(providers?.google?.id, { callbackUrl: "/" })}
-          >
-            {providers?.google?.name}
-          </button>
-        </div>
+          onClick={() => signIn(providers?.google?.id, { callbackUrl: "/" })}
+        >
+          {providers?.google?.name}
+        </button>
+        <button
+          className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5
+            transition-all hover:border-2"
+          onClick={() => signIn(providers?.kakao?.id, { callbackUrl: "/" })}
+        >
+          {providers?.kakao?.name}
+        </button>
+        <button
+          className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5
+            transition-all hover:border-2"
+          onClick={() => signIn(providers?.naver?.id, { callbackUrl: "/" })}
+        >
+          {providers?.naver?.name}
+        </button>
       </div>
     </div>
   );
