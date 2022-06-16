@@ -14,7 +14,6 @@ interface props {
 }
 
 const Home = ({ session, user, users }: props) => {
-  console.log(user);
   return (
     <div className="">
       <Head>
@@ -43,7 +42,6 @@ export const getServerSideProps: GetServerSideProps<{
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/mydata`,
     { name: session?.user.name, email: session?.user?.email }
   );
-  console.log(userRes);
   return {
     props: {
       session,
