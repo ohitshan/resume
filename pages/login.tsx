@@ -14,6 +14,7 @@ interface ProviderProps {
   providers: {
     github: providerForm;
     google: providerForm;
+    naver: providerForm;
   };
 }
 
@@ -59,7 +60,7 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const providers = await getProviders();
   const session = await getSession(context);
-
+  console.log(providers);
   if (session) {
     return {
       redirect: {
