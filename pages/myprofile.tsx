@@ -4,7 +4,7 @@ import { useSession, getSession } from "next-auth/react";
 import type { Session } from "next-auth";
 import NavBar from "../components/NavBar";
 import { CameraFilled } from "@ant-design/icons";
-import { Avatar, Modal, Select } from "antd";
+import { AutoComplete, Avatar, Modal, Select } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
@@ -44,6 +44,7 @@ function Myprofile({ session, user, resume }: props) {
   const [title, setTitle] = useState(resume?.title);
   const [resumeContent, setResumeContent] = useState(resume?.content);
   const [height, setHeight] = useState("1200px");
+  const [UnivList, setUnivList] = useState<{ value: String }[]>([]);
   useEffect(() => {
     if (!profileChanged) return;
     async function getUpdatedUser() {
@@ -68,9 +69,25 @@ function Myprofile({ session, user, resume }: props) {
     getUpdatedUser();
   }, [profileChanged]);
 
-  // useEffect(() => {
-  //   setHeight(`${window.outerHeight}px`);
-  // }, [height]);
+  useEffect(() => {
+    const getList = async () => {
+      const res = await axios.get(
+        `//www.career.go.kr/cnet/openapi/getOpenApi?apiKey=${process.env.NEXT_PUBLIC_EDUCATION_API}&svcType=api&svcCode=SCHOOL&contentType=json&gubun=univ_list&perPage=500`
+      );
+      const univList = res?.data?.dataSearch?.content?.map(
+        (info: { campusName: string; schoolName: string }) =>
+          new Object({ value: `${info.schoolName}(${info.campusName})` })
+      );
+      setUnivList(univList);
+      console.log(res);
+    };
+    getList();
+  }, []);
+
+  useEffect(() => {
+    setHeight(`${window.outerHeight}px`);
+  }, [height]);
+
   const year = [
     "신입",
     "1",
@@ -160,6 +177,7 @@ function Myprofile({ session, user, resume }: props) {
     );
     console.log(resumeRes.data);
     setFinishEdit(true);
+    setSchool(resumeRes?.data?.school || "");
     setResumeContent(resumeRes.data?.content || "");
     setTitle(resumeRes.data?.title || "");
     setFieldName(resumeRes.data?.field || "");
@@ -273,11 +291,16 @@ function Myprofile({ session, user, resume }: props) {
               </div>
               <div className="flex flex-col my-2">
                 <label htmlFor="school">학교</label>
-                <input
+                <AutoComplete
                   id="school"
-                  disabled={finishEdit}
+                  options={UnivList}
                   className="p-2"
+                  disabled={finishEdit}
+                  filterOption={(inputValue, UnivList) =>
+                    UnivList!.value.indexOf(inputValue) !== -1
+                  }
                   value={school}
+                  onChange={(value) => setSchool(value)}
                 />
               </div>
               <div className="flex flex-col my-2">
@@ -297,7 +320,7 @@ function Myprofile({ session, user, resume }: props) {
                   value={FieldName}
                 >
                   {field?.map((field) => (
-                    <option key={field}>{field}</option>
+                    <Option key={field}>{field}</Option>
                   ))}
                 </Select>
               </div>
