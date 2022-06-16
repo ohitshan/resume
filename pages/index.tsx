@@ -36,9 +36,9 @@ export const getServerSideProps: GetServerSideProps<{
   session: Session | null;
 }> = async (context) => {
   const session = await getSession(context);
-  const usersRes = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`
-  );
+  // const usersRes = await axios.get(
+  //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`
+  // );
   const userRes = await axios.post(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/mydata`,
     { name: session?.user.name, email: session?.user?.email }
@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<{
     props: {
       session,
       user: userRes.data,
-      users: usersRes.data,
+      // users: usersRes.data,
     },
   };
 };
