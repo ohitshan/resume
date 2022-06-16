@@ -36,7 +36,7 @@ function Login({ providers }: ProviderProps) {
         className="absolute left-4 top-4 cursor-pointer object-contain md:left-10 md:top-6"
       />
       <div className="flex space-x-2">
-        {Object.values(providers).map((provider) => (
+        {Object?.values(providers)?.map((provider) => (
           <div key={provider.name}>
             <button
               className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5

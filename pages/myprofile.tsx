@@ -99,7 +99,7 @@ function Myprofile({ session, user, resume }: props) {
       );
       const { url } = uploadRes.data;
       const { name, email, image } = session?.user!;
-      console.log(name, email, image);
+
       await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
         name: name,
         email: email,
