@@ -68,9 +68,9 @@ function Myprofile({ session, user, resume }: props) {
     getUpdatedUser();
   }, [profileChanged]);
 
-  useEffect(() => {
-    setHeight(`${window.outerHeight}px`);
-  }, [height]);
+  // useEffect(() => {
+  //   setHeight(`${window.outerHeight}px`);
+  // }, [height]);
   const year = [
     "신입",
     "1",
