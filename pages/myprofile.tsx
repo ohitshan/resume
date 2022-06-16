@@ -175,16 +175,14 @@ function Myprofile({ session, user, resume }: props) {
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/resumes`,
       { user: user?._id }
     );
-    console.log(resumeRes.data);
     setFinishEdit(true);
-    setSchool(resumeRes?.data?.school || "");
+    setSchool(resumeRes?.data?.education || "");
     setResumeContent(resumeRes.data?.content || "");
     setTitle(resumeRes.data?.title || "");
     setFieldName(resumeRes.data?.field || "");
     setCareer(resumeRes?.data?.career || "신입");
     setPart(resumeRes.data?.part);
   };
-
   const partChange = (value: PartName) => {
     setPart(value);
   };
@@ -301,6 +299,7 @@ function Myprofile({ session, user, resume }: props) {
                   }
                   value={school}
                   onChange={(value) => setSchool(value)}
+                  defaultValue={school}
                 />
               </div>
               <div className="flex flex-col my-2">
