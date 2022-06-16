@@ -12,7 +12,7 @@ interface providerForm {
 }
 interface ProviderProps {
   providers: {
-    github: providerForm;
+    kakao: providerForm;
     google: providerForm;
     naver: providerForm;
   };
