@@ -12,19 +12,10 @@ interface providerForm {
   callbackUrl: string;
 }
 interface ProviderProps {
-  providers: {
-    kakao: providerForm;
-    google: providerForm;
-    naver: providerForm;
-  };
+  providersValues: providerForm[];
 }
 
-function Login({ providers }: ProviderProps) {
-  const [Providers, setProviders] = useState<providerForm[]>([]);
-
-  useEffect(() => {
-    setProviders(Object?.values(providers!));
-  }, []);
+function Login({ providersValues }: ProviderProps) {
   return (
     <div
       className="relative flex h-screen w-screen flex-col  items-center
@@ -43,7 +34,7 @@ function Login({ providers }: ProviderProps) {
         className="absolute left-4 top-4 cursor-pointer object-contain md:left-10 md:top-6"
       />
       <div className="flex space-x-2">
-        {/* {Providers?.map((provider) => (
+        {providersValues?.map((provider) => (
           <div key={provider.name}>
             <button
               className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5
@@ -53,7 +44,7 @@ function Login({ providers }: ProviderProps) {
               {provider.name}
             </button>
           </div>
-        ))} */}
+        ))}
       </div>
     </div>
   );
@@ -66,7 +57,7 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const providers = await getProviders();
   const session = await getSession(context);
-  console.log(providers);
+  const providersValues = Object.values(providers!);
   if (session) {
     return {
       redirect: {
@@ -77,7 +68,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
   return {
     props: {
-      providers,
+      providersValues,
       session,
     },
   };
