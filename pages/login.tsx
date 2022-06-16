@@ -18,8 +18,6 @@ interface ProviderProps {
 }
 
 function Login({ providers }: ProviderProps) {
-  const { data: session } = useSession();
-  console.log(providers);
   return (
     <div
       className="relative flex h-screen w-screen flex-col  items-center
