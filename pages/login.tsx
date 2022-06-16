@@ -25,7 +25,7 @@ function Login({ providers }: ProviderProps) {
   //Object.values 가안됨..ㅠㅠ
   // );
 
-  // console.log(Providers);
+  console.log(providers);
 
   return (
     <div
@@ -49,7 +49,11 @@ function Login({ providers }: ProviderProps) {
           <button
             className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5
           transition-all hover:border-2"
-            onClick={() => signIn(providers?.google?.id, { callbackUrl: "/" })}
+            onClick={() =>
+              signIn(providers?.google?.id, {
+                callbackUrl: providers?.google?.callbackUrl,
+              })
+            }
           >
             {providers?.google?.name}
           </button>
