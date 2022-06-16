@@ -2,6 +2,7 @@ import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { getProviders, signIn, useSession, getSession } from "next-auth/react";
 import type { Session } from "next-auth";
+import { useEffect, useState } from "react";
 
 interface providerForm {
   id: string;
@@ -19,6 +20,11 @@ interface ProviderProps {
 }
 
 function Login({ providers }: ProviderProps) {
+  const [Providers, setProviders] = useState<providerForm[]>([]);
+
+  useEffect(() => {
+    setProviders(Object?.values(providers));
+  }, []);
   return (
     <div
       className="relative flex h-screen w-screen flex-col  items-center
@@ -37,7 +43,7 @@ function Login({ providers }: ProviderProps) {
         className="absolute left-4 top-4 cursor-pointer object-contain md:left-10 md:top-6"
       />
       <div className="flex space-x-2">
-        {Object?.values(providers)?.map((provider) => (
+        {Providers?.map((provider) => (
           <div key={provider.name}>
             <button
               className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5
