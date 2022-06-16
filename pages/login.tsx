@@ -12,10 +12,20 @@ interface providerForm {
   callbackUrl: string;
 }
 interface ProviderProps {
-  providersValues: providerForm[];
+  providers: {
+    kakao: providerForm;
+    google: providerForm;
+    naver: providerForm;
+  };
 }
 
-function Login({ providersValues }: ProviderProps) {
+function Login({ providers }: ProviderProps) {
+  const [Providers, setProviders] = useState<providerForm[]>(
+    Object?.values(providers)
+  );
+
+  console.log(Providers);
+
   return (
     <div
       className="relative flex h-screen w-screen flex-col  items-center
@@ -34,7 +44,7 @@ function Login({ providersValues }: ProviderProps) {
         className="absolute left-4 top-4 cursor-pointer object-contain md:left-10 md:top-6"
       />
       <div className="flex space-x-2">
-        {providersValues?.map((provider) => (
+        {Providers?.map((provider) => (
           <div key={provider.name}>
             <button
               className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5
@@ -57,7 +67,6 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const providers = await getProviders();
   const session = await getSession(context);
-  const providersValues = Object.values(providers!);
   if (session) {
     return {
       redirect: {
@@ -68,7 +77,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
   return {
     props: {
-      providersValues,
+      providers,
       session,
     },
   };
