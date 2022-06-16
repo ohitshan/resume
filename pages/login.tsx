@@ -20,11 +20,11 @@ interface ProviderProps {
 }
 
 function Login({ providers }: ProviderProps) {
-  // const [Providers, setProviders] = useState<providerForm[]>([]);
+  const [Providers, setProviders] = useState<providerForm[]>([]);
 
-  // useEffect(() => {
-  //   setProviders(Object?.values(providers));
-  // }, []);
+  useEffect(() => {
+    setProviders(Object?.values(providers!));
+  }, []);
   return (
     <div
       className="relative flex h-screen w-screen flex-col  items-center
