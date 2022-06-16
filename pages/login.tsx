@@ -58,7 +58,7 @@ function Login({ providers }: ProviderProps) {
             {providers?.google?.name}
           </button>
         </div>
-        {/* <button
+        <button
           className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5
             transition-all hover:border-2"
           onClick={() => signIn(providers?.kakao?.id, { callbackUrl: "/" })}
@@ -71,7 +71,7 @@ function Login({ providers }: ProviderProps) {
           onClick={() => signIn(providers?.naver?.id, { callbackUrl: "/" })}
         >
           {providers?.naver?.name}
-        </button> */}
+        </button>
       </div>
     </div>
   );
