@@ -14,7 +14,7 @@ function NavBar({ session, user }: props) {
       <div className="flex items-center space-x-3">
         <Link href={"/"}>
           <img
-            src="./resume.png"
+            src={"/resume.png"}
             alt="Logo"
             width={60}
             height={60}

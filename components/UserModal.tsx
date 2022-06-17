@@ -21,7 +21,10 @@ function UserModal({ resume }: resumeProps) {
   };
   return (
     <>
-      <div className="absolute px-10 top-[-40px] " onClick={showModal}>
+      <div
+        className="absolute px-10 top-[-35px] cursor-pointer"
+        onClick={showModal}
+      >
         <Avatar
           className={`hover:cursor-pointer`}
           size={70}

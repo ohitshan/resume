@@ -10,6 +10,7 @@ import { UserType, ResumeType } from "../type";
 import { Avatar, Modal } from "antd";
 import { useState } from "react";
 import UserModal from "../components/UserModal";
+import Link from "next/link";
 
 interface props {
   session: Session | null;
@@ -25,42 +26,58 @@ const Home = ({ session, user, resumes }: props) => {
         <link rel="icon" href="/resumeIcon.ico" />
       </Head>
       <Layout user={user}>
-        <div className="grid grid-cols-1 justify-start mx-auto mt-[80px]  max-w-[1200px] px-4 lg:grid-cols-3 sm:gird-cols-2 gap-5 gap-y-12">
+        <div className="relative grid grid-cols-1 justify-start mx-auto mt-[80px] max-w-[1200px] px-4 lg:grid-cols-3 sm:gird-cols-2 gap-5 gap-y-12">
           {resumes?.map((resume) => (
             <div
               className="relative flex justify-center col-span-1 w-[100%]"
               key={resume._id}
             >
               <UserModal resume={resume} />
-              <div className="my-4 border p-4 w-[100%] min-h-[200px]">
-                <h2 className="text-2lg text-center">{resume.user?.name}</h2>
-                <h1 className="text-2xl text-center">{resume.title}</h1>
-                <div>
-                  {resume?.content?.split("\n").length <= 5 ? (
-                    resume?.content?.split("\n")?.map((line: string, i) => (
-                      <span key={i}>
-                        {line}
-                        <br />
-                      </span>
-                    ))
-                  ) : resume?.content?.length >= 400 ? (
-                    `${resume?.content?.slice(0, 400)}...`
-                  ) : (
-                    <div>
-                      {resume?.content
-                        ?.split("\n")
-                        ?.slice(0, 4)
-                        .map((line: string, i) => (
+
+              <Link href={`/user/${resume?.user?._id}`} passHref>
+                <div className="pt-10 pb-3 border p-4 w-[100%] min-h-[200px]  cursor-pointer grid grid-rows-3">
+                  <div className="row-span-1">
+                    <h2 className="text-2lg text-center">
+                      {resume.user?.name}
+                    </h2>
+                    <h1 className="text-2xl text-center">{resume.title}</h1>
+                  </div>
+                  <div className=" row-span-2 flex flex-col justify-between">
+                    <div className="">
+                      {resume?.content?.split("\n").length <= 5 ? (
+                        resume?.content?.split("\n")?.map((line: string, i) => (
                           <span key={i}>
                             {line}
                             <br />
                           </span>
-                        ))}
-                      ...
+                        ))
+                      ) : resume?.content?.length >= 400 ? (
+                        `${resume?.content?.slice(0, 400)}...`
+                      ) : (
+                        <div>
+                          {resume?.content
+                            ?.split("\n")
+                            ?.slice(0, 4)
+                            .map((line: string, i) => (
+                              <span key={i}>
+                                {line}
+                                <br />
+                              </span>
+                            ))}
+                          ...
+                        </div>
+                      )}
                     </div>
-                  )}
+                    <div className="row-span-1">
+                      {resume?.part?.map((part) => (
+                        <button className="border py-1 px-3 mr-2 hover:bg-[blue]/50">
+                          # {part}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
@@ -82,7 +99,7 @@ export const getServerSideProps: GetServerSideProps<{
   const ResumesRes = await axios.get(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/resumes`
   );
-  console.log(ResumesRes.data);
+
   return {
     props: {
       session,

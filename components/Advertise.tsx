@@ -167,8 +167,8 @@ function Advertise() {
                 <br />
                 backend : myspace에서 만들어 놓은 back을 수정하여 제작
                 <br />
-                frontend : redux에 대해 추가로 알아보던 중 Redux-Toolkit
-                알게되어 사용. Typescript 사용
+                frontend : Redux-Toolkit 사용. Redux-Toolkit 사용으로 인해 기존
+                redux 보다 코드가 간결해짐. Typescript 사용
               </div>
               <div className="mt-2 text-[#f7f7f7]">
                 github :{" "}
@@ -209,8 +209,8 @@ function Advertise() {
                 <br />
                 backend : myspace에서 만들어 놓은 back을 수정하여 제작
                 <br />
-                frontend : redux에 대해 추가로 알아보던 중 Redux-Toolkit
-                알게되어 사용. Typescript 사용
+                frontend : Redux-Toolkit 사용. Redux-Toolkit 사용으로 인해 기존
+                redux 보다 코드가 간결해짐. Typescript 사용
               </div>
               <div className="mt-2 text-[#f7f7f7]">
                 github :{" "}
@@ -227,7 +227,7 @@ function Advertise() {
         <div>
           <div className="bg-[#364d79] flex flex-col justify-center items-center mx-auto space-x-10 md:flex-row">
             <div className="w-[100%] sm:w-[550px]">
-              <img src="./fakeflix.png" width={"100%"} />
+              <img src="/fakeflix.png" width={"100%"} />
             </div>
             <div className="hidden md:block ">
               <h1 className="text-2xl text-[#f7f7f7]">Netflix 클론코딩</h1>
@@ -264,7 +264,7 @@ function Advertise() {
         <div>
           <div className="bg-[#364d79] flex flex-col justify-center items-center mx-auto space-x-10 md:flex-row">
             <div className="w-[100%] sm:w-[550px]">
-              <img src="./linkedIn.png" width={"100%"} />
+              <img src="/linkedIn.png" width={"100%"} />
             </div>
             <div className="hidden md:block ">
               <h1 className="text-2xl text-[#f7f7f7]">LinkedIn 클론코딩</h1>
@@ -296,6 +296,52 @@ function Advertise() {
                   target={"_blank"}
                 >
                   https://github.com/ohitshan/linkedin-clone
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="bg-[#364d79] flex flex-col justify-center items-center mx-auto space-x-10 md:flex-row">
+            <div className="w-[100%] sm:w-[550px]">
+              <img src="/pizzaApp.png" width={"100%"} />
+            </div>
+            <div className="hidden md:block ">
+              <h1 className="text-2xl text-[#f7f7f7]">Pizza app 클론코딩</h1>
+              <div className="text-[#f7f7f7]">
+                <span className="text-xl">Backend : </span>
+                Mongodb
+              </div>
+              <div className="text-[#f7f7f7]">
+                <span className="text-xl">Frontend : </span>
+                Next.JS, Next-Auth, ReduxToolkit
+              </div>
+              <div className="mt-2 text-[#f7f7f7]">
+                <a href="https://pizza-mu-two.vercel.app/" target={"_blank"}>
+                  https://pizza-mu-two.vercel.app/
+                </a>
+                <br />
+                <a
+                  href="https://pizza-mu-two.vercel.app/admin"
+                  target={"_blank"}
+                >
+                  https://pizza-mu-two.vercel.app/admin
+                </a>
+                <br />
+                (ID:admin, PASSWORD:123456 {"  "} '/'페이지에서 상품등록가능)
+                <br />
+                cloudinary 사용방법을 알기 위해 강의를 보며 클론코딩
+                <br />
+                배포시 error 500 현상이 나타날 수도 있음.
+                <br />
+                새로고침 하다 보면 에러가 없어짐. 로컬에서는 정상작동함 이유는
+                아직모름.
+                <br />
+              </div>
+              <div className="mt-2 text-[#f7f7f7]">
+                github :{" "}
+                <a href="https://github.com/ohitshan/pizza" target={"_blank"}>
+                  https://github.com/ohitshan/pizza
                 </a>
               </div>
             </div>
