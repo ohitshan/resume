@@ -26,6 +26,10 @@ const ResumeSchema = new mongoose.Schema(
     career: {
       type: String,
     },
+    isPrivate: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );

@@ -12,7 +12,7 @@ export default async function handler(
 
   if (method === "GET") {
     try {
-      const resumes = await Resume.find();
+      const resumes = await Resume.find().populate("user");
       res.status(200).json(resumes);
     } catch (err) {
       res.status(500).json(err);

@@ -22,6 +22,7 @@ interface props {
     education: string;
     part: any;
     field: "개발" | "서비스";
+    isPrivate: boolean;
   };
 }
 
@@ -45,6 +46,8 @@ function Myprofile({ session, user, resume }: props) {
   const [resumeContent, setResumeContent] = useState(resume?.content);
   const [height, setHeight] = useState("1200px");
   const [UnivList, setUnivList] = useState<{ value: String }[]>([]);
+  const [isPrivate, setIsPrivate] = useState(resume?.isPrivate);
+  console.log(isPrivate);
   useEffect(() => {
     if (!profileChanged) return;
     async function getUpdatedUser() {
@@ -79,7 +82,6 @@ function Myprofile({ session, user, resume }: props) {
           new Object({ value: `${info.schoolName}(${info.campusName})` })
       );
       setUnivList(univList);
-      console.log(res);
     };
     getList();
   }, []);
@@ -196,13 +198,13 @@ function Myprofile({ session, user, resume }: props) {
       <NavBar user={user} />
 
       <div
-        className="bg-[#E7EAD9] px-10 py-10 "
+        className="bg-[#E7EAD9] px-3 py-10 md:px-10 "
         style={{ minHeight: `${height}` }}
       >
-        <h1 className="text-2xl max-w-6xl mx-auto">My Profile</h1>
-        <div className="grid max-w-6xl mx-auto mt-3 grid-cols-4 gap-5">
-          <div className="col-span-1">
-            <div className="border border-[#D9D9D9]  bg-white flex flex-col justify-center items-center pt-5">
+        <h1 className="text-2xl max-w-[1200px] mx-auto">My Profile</h1>
+        <div className="grid max-w-[1200px] mx-auto mt-3 grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="col-span-1 md:col-span-1 ">
+            <div className="border border-[#D9D9D9]  bg-white flex flex-col justify-center items-center py-5">
               <Modal
                 visible={isModalVisible}
                 onOk={handleOk}
@@ -274,10 +276,31 @@ function Myprofile({ session, user, resume }: props) {
               <h2 className="text-lg font-semibold my-2">
                 {session?.user?.name}
               </h2>
-              <h6>{session?.user?.email}</h6>
+              <h6>
+                {session?.user?.email || "카카오톡은 검수 전 이메일제공 x"}
+              </h6>
+              <div className="flex items-center space-x-2">
+                <label htmlFor="private"> 연락처 공개</label>
+                <input
+                  type={"checkbox"}
+                  id="private"
+                  checked={isPrivate}
+                  onChange={async (e) => {
+                    setIsPrivate(e.target.checked);
+                    let body = {
+                      user: user?._id,
+                      isPrivate: e.target.checked,
+                    };
+                    await axios.post(
+                      `${process.env.NEXT_PUBLIC_BASE_URL}/api/resumes/edit`,
+                      body
+                    );
+                  }}
+                />
+              </div>
             </div>
           </div>
-          <div className="col-span-3">
+          <div className="col-span-1 md:col-span-2 ">
             <div className="border border-[#D9D9D9]  p-3 bg-white space-y-5">
               <div className="flex justify-between px-2 items-center">
                 <h1 className="text-2xl font-bold">MY RESUME</h1>
