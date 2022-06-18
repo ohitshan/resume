@@ -8,9 +8,11 @@ import Layout from "../components/Layout";
 import axios from "axios";
 import { UserType, ResumeType } from "../type";
 import { Avatar, Modal } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserModal from "../components/UserModal";
 import Link from "next/link";
+import { useRecoilValue } from "recoil";
+import { handleSearchTerm } from "../atoms/searchTerm";
 
 interface props {
   session: Session | null;
@@ -19,6 +21,23 @@ interface props {
 }
 
 const Home = ({ session, user, resumes }: props) => {
+  const term = useRecoilValue(handleSearchTerm);
+  const [Resumes, setResumes] = useState(resumes);
+  useEffect(() => {
+    const getNewResumes = async () => {
+      let body = { term };
+      try {
+        const ResumesRes = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/resumes/getResume`,
+          body
+        );
+        setResumes(ResumesRes.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getNewResumes();
+  }, [term]);
   return (
     <div className="">
       <Head>
@@ -27,7 +46,7 @@ const Home = ({ session, user, resumes }: props) => {
       </Head>
       <Layout user={user}>
         <div className="relative grid grid-cols-1 justify-start mx-auto mt-[80px] max-w-[1200px] px-4 lg:grid-cols-3 sm:gird-cols-2 gap-5 gap-y-12">
-          {resumes?.map((resume) => (
+          {Resumes?.map((resume) => (
             <div
               className="relative flex justify-center col-span-1 w-[100%]"
               key={resume._id}
@@ -70,7 +89,10 @@ const Home = ({ session, user, resumes }: props) => {
                     </div>
                     <div className="row-span-1">
                       {resume?.part?.map((part) => (
-                        <button className="border py-1 px-3 mr-2 hover:bg-[blue]/50">
+                        <button
+                          key={part}
+                          className="border py-1 px-3 mr-2 hover:bg-[blue]/50"
+                        >
                           # {part}
                         </button>
                       ))}

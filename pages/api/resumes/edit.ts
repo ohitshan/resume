@@ -10,14 +10,6 @@ export default async function handler(
 
   await dbConnect();
 
-  if (method === "GET") {
-    try {
-      const resumes = await Resume.find();
-      res.status(200).json(resumes);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  }
   if (method === "POST") {
     try {
       console.log(req.body);

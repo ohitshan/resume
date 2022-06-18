@@ -161,11 +161,11 @@ function Myprofile({ session, user, resume }: props) {
       career: career,
     };
 
-    await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/resumes/edit`,
-      body
-    );
     try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/resumes/edit`,
+        body
+      );
       setFinishEdit(true);
     } catch (err) {
       console.log(err);

@@ -12,6 +12,7 @@ export interface ResumeType {
   content: string;
   education: string;
   isPrivate: boolean;
-  // field:string;
+  field: string;
   part: string[];
+  career: string;
 }

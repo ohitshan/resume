@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import { getProviders, signIn, useSession, getSession } from "next-auth/react";
 import type { Session } from "next-auth";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface providerForm {
   id: string;
@@ -25,8 +26,6 @@ function Login({ providers }: ProviderProps) {
   //Object.values 가안됨..ㅠㅠ
   // );
 
-  console.log(providers);
-
   return (
     <div
       className="relative flex h-screen w-screen flex-col  items-center
@@ -37,13 +36,17 @@ function Login({ providers }: ProviderProps) {
         <title>Resume-login</title>
         <link rel="icon" href="/resumeIcon.ico" />
       </Head>
-      <img
-        src="./resume.png"
-        alt="Logo"
-        width={60}
-        height={60}
-        className="absolute left-4 top-4 cursor-pointer object-contain md:left-10 md:top-6"
-      />
+      <Link href={"/"}>
+        <a>
+          <img
+            src="./resume.png"
+            alt="Logo"
+            width={60}
+            height={60}
+            className="absolute left-4 top-4 cursor-pointer object-contain md:left-10 md:top-6"
+          />
+        </a>
+      </Link>
       <div className="flex space-x-2">
         <div>
           <button
