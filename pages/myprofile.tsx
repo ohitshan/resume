@@ -47,7 +47,7 @@ function Myprofile({ session, user, resume }: props) {
   const [height, setHeight] = useState("1200px");
   const [UnivList, setUnivList] = useState<{ value: String }[]>([]);
   const [isPrivate, setIsPrivate] = useState(resume?.isPrivate);
-  console.log(isPrivate);
+
   useEffect(() => {
     if (!profileChanged) return;
     async function getUpdatedUser() {
@@ -280,7 +280,7 @@ function Myprofile({ session, user, resume }: props) {
                 {session?.user?.email || "카카오톡은 검수 전 이메일제공 x"}
               </h6>
               <div className="flex items-center space-x-2">
-                <label htmlFor="private"> 연락처 공개</label>
+                <label htmlFor="private"> 연락처 비공개</label>
                 <input
                   type={"checkbox"}
                   id="private"
