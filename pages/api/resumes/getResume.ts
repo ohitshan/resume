@@ -28,7 +28,7 @@ export default async function handler(
           { title: new RegExp(req.body.term) },
           { content: new RegExp(req.body.term) },
         ],
-      });
+      }).populate("user");
       res.status(200).json(resumes);
     } catch (err) {
       console.log(err);
