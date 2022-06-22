@@ -85,9 +85,11 @@ function SuggestionModal({ session, user, resume }: Props) {
           <Popover
             overlayInnerStyle={{ background: "gray" }}
             content={
-              <div className=" text-white">
-                하루가 지나야 다시 보낼수 있습니다.
-              </div>
+              isInLastDay ? (
+                <div className=" text-white">
+                  하루가 지나야 다시 보낼수 있습니다.
+                </div>
+              ) : null
             }
           >
             <Button
