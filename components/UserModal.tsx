@@ -22,14 +22,10 @@ function UserModal({ resume }: resumeProps) {
   return (
     <>
       <div
-        className="absolute px-10 top-[-35px] cursor-pointer"
+        className="absolute px-10 top-[-35px] cursor-pointer hover:scale-125"
         onClick={showModal}
       >
-        <Avatar
-          className={`hover:cursor-pointer`}
-          size={70}
-          src={resume?.user?.image}
-        />
+        <Avatar size={70} src={resume?.user?.image} />
       </div>
 
       <Modal

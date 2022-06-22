@@ -34,7 +34,6 @@ function Myprofile({ session, user, resume }: props) {
   const [file, setFile] = useState<any>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [imageSrc, setImageSrc] = useState<string>();
-  const [profileChanged, setProfileChanged] = useState(false);
   const [User, setUser] = useState(user);
   const [finishEdit, setFinishEdit] = useState(true);
   const [school, setSchool] = useState(resume?.education);
@@ -47,30 +46,6 @@ function Myprofile({ session, user, resume }: props) {
   const [height, setHeight] = useState("1200px");
   const [UnivList, setUnivList] = useState<{ value: String }[]>([]);
   const [isPrivate, setIsPrivate] = useState(resume?.isPrivate);
-
-  useEffect(() => {
-    if (!profileChanged) return;
-    async function getUpdatedUser() {
-      const { name, email, image } = session?.user!;
-      try {
-        const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/mydata`,
-          {
-            name: name,
-            email: email,
-            image: image,
-          }
-        );
-        setUser(res.data);
-        setProfileChanged(false);
-        setFile(null);
-        setImageSrc("");
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    getUpdatedUser();
-  }, [profileChanged]);
 
   useEffect(() => {
     const getList = async () => {
@@ -117,21 +92,22 @@ function Myprofile({ session, user, resume }: props) {
         data
       );
       const { url } = uploadRes.data;
-      const { name, email, image } = session?.user!;
+      const { name, email } = session?.user!;
 
-      await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
-        name: name,
-        email: email,
-        image: image,
-        newimage: url,
-      });
-      setProfileChanged(true);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
+        {
+          name: name,
+          email: email,
+          newimage: url,
+        }
+      );
+      setUser(res.data);
     } catch (err) {
       console.log(err);
     }
   };
-
-  const handleOk = () => {
+  const handleOk = async () => {
     if (file.length === 0) {
       alert("choose the pic");
       return;
@@ -195,7 +171,7 @@ function Myprofile({ session, user, resume }: props) {
         <title>Resume</title>
         <link rel="icon" href="/resumeIcon.ico" />
       </Head>
-      <NavBar user={user} />
+      <NavBar user={User} />
 
       <div
         className="bg-[#E7EAD9] px-3 py-10 md:px-10 "
@@ -255,7 +231,7 @@ function Myprofile({ session, user, resume }: props) {
                 <Avatar
                   className={`hover:cursor-pointer absolute`}
                   size={70}
-                  src={user?.image}
+                  src={User?.image}
                 />
                 <CameraFilled
                   style={{

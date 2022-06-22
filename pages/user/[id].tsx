@@ -32,9 +32,13 @@ function UserProfile({ session, user, resume }: props) {
               <h2 className="text-lg font-semibold my-2">
                 {resume?.user?.name}
               </h2>
-              <h6>
-                {resume?.user?.email || "카카오톡은 검수 전 이메일제공 x"}
-              </h6>
+              {resume?.isPrivate ? (
+                <h6>연락처 : 비공개</h6>
+              ) : (
+                <h6>
+                  {resume?.user?.email || "카카오톡은 검수 전 이메일제공 x"}
+                </h6>
+              )}
               <div className="my-2">학교 : {resume?.education}</div>
               <div className="my-2">분야 : {resume?.field}</div>
               <div className="my-2">

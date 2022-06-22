@@ -31,44 +31,48 @@ function NavBar({ session, user }: props) {
         </Link>
         <h1 className="text-4xl">Resume</h1>
       </div>
-      <div className="flex space-x-3  items-center">
+      <div className="flex flex-col-reverse space-x-3 items-end sm:flex-row sm:items-center">
         {showSearch ? (
-          <Search
-            placeholder="input search text"
-            onSearch={onSearch}
-            style={{ width: 200 }}
-            className="searchInput"
-          />
-        ) : null}
-        <SearchIcon
-          className="h-8 w-8 hover:cursor-pointer"
-          onClick={() => setShowSearch(!showSearch)}
-        />
-        {user ? (
-          <Popover
-            content={
-              <div className="text-center hover:cursor-pointer space-y-2">
-                <Link href={"/myprofile"}>
-                  <div className="hover:underline">설정</div>
-                </Link>
-                <div className="hover:underline" onClick={() => signOut()}>
-                  로그아웃
-                </div>
-              </div>
-            }
-            placement="bottom"
-          >
-            <Avatar
-              className={`hover:cursor-pointer `}
-              size={36}
-              src={user.image}
+          <div className="my-1">
+            <Search
+              placeholder="input search text"
+              onSearch={onSearch}
+              style={{ width: 200 }}
+              className="searchInput"
             />
-          </Popover>
-        ) : (
-          <Link href={"/login"}>
-            <div className={`hover:cursor-pointer`}>회원가입/로그인</div>
-          </Link>
-        )}
+          </div>
+        ) : null}
+        <div className="flex space-x-2 items-center">
+          <SearchIcon
+            className="h-8 w-8 hover:cursor-pointer"
+            onClick={() => setShowSearch(!showSearch)}
+          />
+          {user ? (
+            <Popover
+              content={
+                <div className="text-center hover:cursor-pointer space-y-2">
+                  <Link href={"/myprofile"}>
+                    <div className="hover:underline">설정</div>
+                  </Link>
+                  <div className="hover:underline" onClick={() => signOut()}>
+                    로그아웃
+                  </div>
+                </div>
+              }
+              placement="bottom"
+            >
+              <Avatar
+                className={`hover:cursor-pointer `}
+                size={36}
+                src={user.image}
+              />
+            </Popover>
+          ) : (
+            <Link href={"/login"}>
+              <div className={`hover:cursor-pointer`}>회원가입/로그인</div>
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );
