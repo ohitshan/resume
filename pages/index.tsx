@@ -23,7 +23,7 @@ interface props {
 const Home = ({ session, user, resumes }: props) => {
   const term = useRecoilValue(handleSearchTerm);
   const [Resumes, setResumes] = useState(resumes);
-
+  console.log(resumes, Resumes);
   useEffect(() => {
     const getNewResumes = async () => {
       let body = { term };
@@ -37,7 +37,9 @@ const Home = ({ session, user, resumes }: props) => {
         console.log(err);
       }
     };
-    getNewResumes();
+    if (term.trim().length > 0) {
+      getNewResumes();
+    }
   }, [term]);
 
   return (
